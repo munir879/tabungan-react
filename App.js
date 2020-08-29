@@ -4,18 +4,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { FontAwesome } from '@expo/vector-icons';
 import { createStackNavigator } from '@react-navigation/stack';
-import * as SplashScreen from 'expo-splash-screen';
-import { Asset } from 'expo-asset';
 
-
-
-// import HomeScreen from './screen/HomeScreen';
-import login from './screen/login';
-import register from './screen/register';
-import CategoryScreen from './screen/CategoryScreen';
+import HomeScreen from './screen/HomeScreen';
+import TransaksiScreen from './screen/TransaksiScreen';
 import ContuctUs from './screen/ContuctUs';
-import Post from './screen/Post';
-import CategoryPost from './screen/CategoryPost';
+// import HomeScreen from './screen/HomeScreen';
 
 
 
@@ -27,51 +20,25 @@ function MyStack() {
     <Stack.Navigator screenOptions={{
       headerShown: false
     }}>
-      <Stack.Screen name="Home" component={login} />
-      <Stack.Screen name="Post" component={Post} />
+      <Stack.Screen name="Home" component={HomeScreen} />
     </Stack.Navigator>
   );
 }
 
-function category() {
+function Transaksi() {
   return (
     <Stack.Navigator screenOptions={{
       headerShown: false
     }}>
-      <Stack.Screen name="category" component={CategoryScreen} />
-      <Stack.Screen name="CategoryPost" component={CategoryPost} />
+      <Stack.Screen name="transaksi" component={TransaksiScreen} />
+
     </Stack.Navigator>
   );
 }
 
 
 export default class App extends Component {
-  state = {
-    isReady: false,
-  };
-
-  componentDidMount() {
-    SplashScreen.preventAutoHideAsync();
-  }
-
   render() {
-    if (!this.state.isReady) {
-      return (
-        <View style={{
-          flex: 1,
-          backgroundColor: "#000000",
-          justifyContent: 'center',
-          alignItems: 'center'
-        }}>
-          <Image
-            source={require('./assets/splash.gif')}
-            onLoad={this._cacheResourcesAsync}
-            style={{ "resizeMode": "contain" }}
-          />
-        </View>
-      );
-    }
-
     return (
       <NavigationContainer>
         <Tab.Navigator
@@ -87,7 +54,7 @@ export default class App extends Component {
               ),
             }}
           />
-          <Tab.Screen name="Transaksi" component={category}
+          <Tab.Screen name="Transaksi" component={Transaksi}
             options={{
               tabBarIcon: ({ color }) => (
                 <FontAwesome name="shopping-cart" size={24} color={color} />
@@ -105,27 +72,6 @@ export default class App extends Component {
       </NavigationContainer>
     );
   }
-
-  _cacheSplashResourcesAsync = async () => {
-    const gif = require('./assets/splash.gif');
-    return Asset.fromModule(gif).downloadAsync();
-  };
-
-  _cacheResourcesAsync = async () => {
-    SplashScreen.hideAsync();
-    const images = [
-      require('./assets/splash.png'),
-      require('./assets/splash.png'),
-    ];
-
-    const cacheImages = images.map(image => {
-      return Asset.fromModule(image).downloadAsync();
-    });
-
-    await Promise.all(cacheImages);
-    setTimeout(() => { this.setState({ isReady: true }) }, 2100);
-    ;
-  };
 }
 
 

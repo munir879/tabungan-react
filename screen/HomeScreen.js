@@ -51,13 +51,7 @@ class HomeScreen extends Component {
             return (
 
                 <Container>
-                    <Header style={{ backgroundColor: '#c91caf' }}>
-
-                        <Body style={{ alignItems: 'center' }}>
-                            <Title style={{ fontSize: 20 }}>Srikandi Indonesia</Title>
-                        </Body>
-
-                    </Header>
+                    <Header />
                     <View style={{
                         flex: 1,
                         flexDirection: 'row',
